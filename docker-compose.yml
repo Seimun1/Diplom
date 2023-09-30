@@ -5,9 +5,9 @@ services:
     user: "node"
     ports:
       - '9999:9999'
-    working_dir: /home/node/app
+    working_dir: /app
     volumes:
-      - ./gate-simulator/:/home/node/app
+      - ./gate-simulator/:/app
     command: "npm start"
 
   mysql:
