@@ -1,5 +1,7 @@
 package ru.netology.test;
 
+
+import com.codeborne.selenide.logevents.LogEventListener;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
@@ -22,7 +24,7 @@ public class CreditRequestTest {
 
     @BeforeEach
     void setUp() {
-        open("https://localhost:8080/");
+        open("http://localhost:8080/");
     }
 
     @AfterAll
@@ -71,5 +73,6 @@ public class CreditRequestTest {
         val creditPage = new OrderPage().goToCredit();
         creditPage.emptyFieldNotification();
     }
+
 
 }
