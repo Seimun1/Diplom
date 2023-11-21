@@ -1,75 +1,68 @@
 package ru.netology.page;
 
-import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
-
-import java.time.Duration;
-
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
+import java.time.Duration;
 
 
 public class CreditPage {
-    private SelenideElement heading = $$(".heading").find(exactText("Кредит по данным карты"));
-    private SelenideElement cardNumber = $(".input [placeholder='0000 0000 0000 0000']");
-    private SelenideElement month = $(".input [placeholder='08']");
-    private SelenideElement year = $(".input [placeholder='22']");
-    private SelenideElement fieldCardOwner = $$(".input__top").find(text("Владелец")).parent();
-    private SelenideElement cardOwner = fieldCardOwner.$(".input__control");
-    private SelenideElement cvc = $(".input [placeholder='999']");
-    private SelenideElement proceedButton = $(".form-field button");
-    private SelenideElement approvedNotification = $(".notification_status_ok");
-    private SelenideElement declinedNotification = $(".notification_status_error");
-    private SelenideElement fieldCard = $$(".input__top").find(text("Номер карты")).parent();
-    private SelenideElement fieldMonth = $$(".input__top").find(text("Месяц")).parent();
-    private SelenideElement fieldYear = $$(".input__top").find(text("Год")).parent();
-    private SelenideElement fieldCvc = $$(".input__top").find(text("CVC/CVV")).parent();
+    private final SelenideElement heading = $(byText("Оплата по карте"));
+    private final ElementsCollection fields = $$(".input__control");
+    private final SelenideElement cardNumber = $("[placeholder='0000 0000 0000 0000']");
+    private final SelenideElement month = $("[placeholder='08']");
+    private final SelenideElement year = $("[placeholder='22']");
+    private final SelenideElement cardOwnerField = fields.get(3);
+    private final SelenideElement cvv = $("[placeholder='999']");
+    private final SelenideElement proceedButton = $(withText("Продолжить"));
+    private final SelenideElement approvedNotification = $(withText("Успешно"));
+    private final SelenideElement errorNotification = $(withText("Ошибка. Банк отказал в проведении операции"));
+    private final SelenideElement invalidFormat = $(withText("Неверный формат"));
+    private final SelenideElement requiredField = $(withText("Поле обязательно для заполнения"));
+    private final SelenideElement expiredYearError = $(withText("Истёк срок действия карты"));
+    private final SelenideElement invalidDateError = $(withText("Неверно указан срок действия карты"));
 
     public CreditPage() {
+
         heading.shouldBe(visible);
     }
 
-    public void credit(DataHelper.CardInfo info) {
-        cardNumber.setValue(info.getCardNumber());
-        month.setValue(info.getMonth());
-        year.setValue(info.getYear());
-        cardOwner.setValue(info.getOwnerName());
-        cvc.setValue(info.getCvc());
+    public void paymentCredit(DataHelper.CardInformation cardInformation) {
+        cardNumber.setValue(cardInformation.getCardNumber());
+        month.setValue(cardInformation.getMonth());
+        year.setValue(cardInformation.getYear());
+        cardOwnerField.setValue(cardInformation.getHolder());
+        cvv.setValue(cardInformation.getCVV());
         proceedButton.click();
     }
 
-    public void approved() {
-        approvedNotification.shouldBe(visible, Duration.ofSeconds(15));
+        public void verifySuccessNotificationCreditCard() {
+            approvedNotification.shouldBe(visible, Duration.ofSeconds(15));
+        }
+
+        public void verifyErrorNotificationCreditCard() {
+            errorNotification.shouldBe(visible, Duration.ofSeconds(15));
+        }
+
+        public void verifyInvalidFormatCreditCard() {
+            invalidFormat.shouldBe(visible);
+        }
+
+        public void verifyRequiredFieldCreditCard() {
+            requiredField.shouldBe(visible);
+        }
+
+        public void expiredCreditCardYear () {
+            expiredYearError.shouldBe(visible);
+        }
+
+        public void verifyInvalidDateCreditCard() {
+            invalidDateError.shouldBe(visible);
+        }
     }
 
-    public void declined() {
-        declinedNotification.shouldBe(visible, Duration.ofSeconds(15));
-    }
-
-    public void invalidCardNotification() {
-        fieldMonth.$(".input__sub").shouldBe(visible).shouldHave(ownText("Неверно указан срок действия карты"));
-        fieldYear.$(".input__sub").shouldBe(visible).shouldHave(ownText("Истёк срок действия карты"));
-        fieldCardOwner.$(".input__sub").shouldBe(visible).shouldHave(ownText("Неверный формат"));
-    }
-
-    public void wrongFormatNotification() {
-        fieldCard.$(".input__sub").shouldBe(visible).shouldHave(ownText("Неверный формат"));
-        fieldMonth.$(".input__sub").shouldBe(visible).shouldHave(ownText("Неверный формат"));
-        fieldYear.$(".input__sub").shouldBe(visible).shouldHave(ownText("Неверный формат"));
-        fieldCardOwner.$(".input__sub").shouldBe(visible).shouldHave(ownText("Неверный формат"));
-        fieldCvc.$(".input__sub").shouldBe(visible).shouldHave(ownText("Неверный формат"));
-    }
-
-    public void emptyFieldNotification() {
-        proceedButton.click();
-        fieldCard.$(".input__sub").shouldBe(visible).shouldHave(ownText("Поле обязательно для заполнения"));
-        fieldMonth.$(".input__sub").shouldBe(visible).shouldHave(ownText("Поле обязательно для заполнения"));
-        fieldYear.$(".input__sub").shouldBe(visible).shouldHave(ownText("Поле обязательно для заполнения"));
-        fieldCardOwner.$(".input__sub").shouldBe(visible).shouldHave(ownText("Поле обязательно для заполнения"));
-        fieldCvc.$(".input__sub").shouldBe(visible).shouldHave(ownText("Поле обязательно для заполнения"));
-    }
-
-
-}
