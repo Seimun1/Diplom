@@ -3,8 +3,8 @@
 ### Документация: 
 
 1. [План автоматизации](https://github.com/AlexSashaNik/QA_Diploma/blob/main/Plan.md)
-2. [Отчет по итогам тестирования](https://github.com/AlexSashaNik/QA_Diploma/blob/main/MAIN%20DOCUMENTS/Report.md)
-3. [Отчет по итогам автоматизации](https://github.com/AlexSashaNik/QA_Diploma/blob/main/MAIN%20DOCUMENTS/Summary.md)
+2. [Отчет по итогам тестирования](https://github.com/AlexSashaNik/QA_Diploma/blob/main/Report.md)
+3. [Отчет по итогам автоматизации](https://github.com/AlexSashaNik/QA_Diploma/blob/main/Summary.md)
 
 ### Запуск тестов:
 
