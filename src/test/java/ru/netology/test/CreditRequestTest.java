@@ -18,13 +18,15 @@ public class CreditRequestTest {
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
-    @BeforeEach
-    void setUp() {
-        open("http://localhost:8080/");
-    }
+
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
+    }
+
+    @BeforeEach
+    void setUp() {
+        open("http://localhost:8080/");
     }
 
     @DisplayName("Успешная покупка тура в кредит")
