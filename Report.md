@@ -10,8 +10,7 @@
 - успешных тестов: 13 (36 %)
 - неуспешных тестов: 23 (64 %)
 
-Отчет Allure:
-(https://github.com/AlexSashaNik/QA_Diploma/blob/main/Allure.jpg)
+[Отчет Allure] (https://github.com/AlexSashaNik/QA_Diploma/blob/main/Allure.jpg)
 
 
 
