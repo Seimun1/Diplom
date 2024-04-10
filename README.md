@@ -21,3 +21,4 @@
 2. 'java -jar ./artifacts/aqa-shop.jar --spring.datasource.url=jdbc:postgresql://localhost:5432/app' - запуск приложения
 3. './gradlew clean test -Ddb.url=jdbc:postgresql://localhost:5432/app'- запуск автотестов
 4. './gradlew allureReport', './gradlew allureServe' - создание отчета Allure
+5. 
